@@ -1,0 +1,550 @@
+/* Убираем фон страницы и задаем базовые стили */
+body {
+    background-color: #fff; /* Устанавливаем белый фон */
+    color: #000; /* Черный текст для читаемости */
+}
+
+/* Чат - левая панель */
+.chat-left {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 700px; /* Увеличенная высота */
+    overflow-y: auto; /* Прокрутка при переполнении */
+    position: relative;
+}
+
+/* История чатов - правая панель */
+.chat-history {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 700px; /* Увеличенная высота */
+    overflow-y: auto;
+    transition: margin-right 0.3s ease; /* Плавное сдвигание */
+}
+
+/* Стиль для панели сообщений */
+.chat-box {
+    flex-grow: 1;
+    max-height: 600px; /* Увеличенная высота панели сообщений */
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+/* Сообщения */
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #d4f8d4;
+    align-self: flex-end;
+}
+
+.ai-message {
+    background-color: #e6e6e6;
+    align-self: flex-start;
+}
+
+/* Ввод сообщений */
+.input-area textarea {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    resize: none;
+    height: 80px; /* Увеличенная высота textarea */
+    margin-bottom: 10px;
+}
+
+/* Кнопки действий */
+.btn-gradient-green {
+    background: linear-gradient(to right, #56ab2f, #a8e063);
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none; /* Убираем границу */
+    transition: background 0.3s ease;
+}
+
+.btn-gradient-green:hover {
+    background: linear-gradient(to right, #4caf50, #8bc34a);
+}
+
+.btn-outline-info,
+.btn-outline-primary,
+.btn-outline-secondary {
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-info {
+    border: 2px solid #17a2b8;
+    color: #17a2b8;
+}
+
+.btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+}
+
+.btn-outline-secondary {
+    border: 2px solid #6c757d;
+    color: #6c757d;
+}
+
+.btn-outline-info:hover {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Скрытие панели истории */
+.history-panel.d-none {
+    display: none;
+}
+
+/* Анимация сдвига панели истории */
+.chat-history.d-none {
+    margin-right: -100%;
+}
+
+/* Мобильная адаптивность */
+@media (max-width: 768px) {
+    .chat-left,
+    .chat-history {
+        height: auto; /* Автоматическая высота */
+    }
+
+    .chat-left,
+    .chat-history {
+        width: 100%; /* Панели занимают всю ширину */
+    }
+}
+
+/* Кнопка удаления чата */
+.delete-chat {
+    background: none;
+    border: none;
+    color: #dc3545; /* Красный цвет для удаления */
+    cursor: pointer;
+}
+
+.delete-chat:hover {
+    color: #a71d2a;
+}
+
+
+/* custom.css */
+
+/* Поднимаем основной контейнер, уменьшая отступы */
+.container.my-4 {
+    margin-top: 1rem !important; /* Было my-4 = 1.5rem, уменьшаем до 1rem или меньше */
+}
+
+/* Скрываем scrollbar в #chatBox */
+#chatBox {
+    overflow-y: auto;
+    scrollbar-width: none; /* Для Firefox */
+}
+#chatBox::-webkit-scrollbar {
+    display: none; /* Для Chrome, Safari */
+}
+
+/* Анимация появления сообщений */
+.fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.3s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стили для индикатора печати (ИИ думает) */
+.chat-typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: #555;
+    font-style: italic;
+}
+.chat-typing-indicator.hidden {
+    display: none;
+}
+
+/* Форматирование сообщений */
+.chat-box .message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.user-message {
+    background-color: #d4f8d4;
+    align-self: flex-end;
+}
+
+.ai-message {
+    background-color: #e6e6e6;
+    align-self: flex-start;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Стили для кодовых блоков */
+.ai-message pre code {
+    display: block;
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* Кнопка регистрации */
+.btn-register {
+    background: linear-gradient(90deg, #00c6ff, #0072ff); /* Голубой градиент */
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-register:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+}
+
+/* Кнопка входа */
+.btn-login {
+    background: linear-gradient(90deg, #00b09b, #96c93d); /* Зеленый градиент */
+    color: white;
+    border: none;
+}
+
+.btn-login:hover {
+    background: linear-gradient(90deg, #96c93d, #00b09b);
+}
+
+/* Стили вкладок */
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.nav-tabs .nav-link {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid transparent;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-color: #007bff;
+}
+
+/* Панель контента вкладок */
+.tab-content {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .nav-tabs .nav-link {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    .tab-content {
+        padding: 15px;
+        max-width: 100%;
+    }
+}
+
+#particles-js {
+  position: fixed; /* Закрепляем эффект на экране */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #232741; /* Фон для области Particles.js */
+  z-index: -1; /* Убедитесь, что контент поверх */
+}
+
+
+/* Стиль для контейнера логотипа */
+.logo-container {
+    position: absolute; /* Абсолютное позиционирование */
+    top: 20px;
+    left: 20px;
+    z-index: 2; /* Размещаем выше градиента */
+}
+
+/* Стиль для текстового логотипа */
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(270deg, #ff7e5f, #feb47b, #6a11cb, #2575fc);
+    background-size: 800% 800%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientAnimation 8s ease infinite;
+}
+
+/* Анимация градиента */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Основной контейнер */
+.container {
+    position: relative;
+    z-index: 1; /* Размещаем выше анимации */
+    color: #fff; /* Цвет текста */
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.7); /* Полупрозрачный фон для улучшения читаемости текста */
+    border-radius: 10px; /* Закругленные углы */
+    margin: 50px auto; /* Центрирование контейнера */
+    max-width: 900px; /* Максимальная ширина контейнера */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .nav-tabs .nav-link {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    .tab-content {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+
+    .btn-primary, .btn-outline-primary, .btn-danger {
+        padding: 8px 16px;
+        font-size: 14px;
+        min-width: 100px;
+    }
+}
+
+/* Кастомный класс для унификации всех кнопок */
+.btn-fixit {
+    display: block; /* Отображение как блочный элемент */
+    width: 100%; /* Растягивание на всю ширину родителя */
+    padding: 12px 20px; /* Внутренние отступы */
+    font-size: 1rem; /* Размер шрифта */
+    font-weight: 600; /* Жирность шрифта */
+    text-align: center; /* Выравнивание текста по центру */
+    text-transform: uppercase; /* Преобразование текста в верхний регистр */
+    border: none; /* Удаление границы */
+    border-radius: 8px; /* Скругление углов */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Плавные переходы */
+    margin-bottom: 15px; /* Нижний отступ между кнопками */
+    cursor: pointer; /* Указатель курсора при наведении */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Лёгкая тень для глубины */
+}
+
+/* Основной цвет кнопки (синий) */
+.btn-fixit-primary {
+    background-color: #007bff; /* Синий цвет */
+    color: #fff; /* Белый текст */
+}
+
+.btn-fixit-primary:hover {
+    background-color: #0056b3; /* Темно-синий при наведении */
+    transform: translateY(-2px); /* Лёгкое поднятие при наведении */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Увеличенная тень при наведении */
+}
+
+.btn-fixit-primary:active {
+    background-color: #004085; /* Более тёмный синий при нажатии */
+    transform: translateY(0); /* Возврат к исходному положению при клике */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Восстановление тени */
+}
+
+/* Красная кнопка для критических действий (например, Выход) */
+.btn-fixit-danger {
+    background-color: #dc3545; /* Красный цвет */
+    color: #fff;
+}
+
+.btn-fixit-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-fixit-danger:active {
+    background-color: #bd2130;
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Серый цвет для второстепенных действий (например, Личный кабинет) */
+.btn-fixit-secondary {
+    background-color: #6c757d; /* Серый цвет */
+    color: #fff;
+}
+
+.btn-fixit-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-fixit-secondary:active {
+    background-color: #545b62;
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Зелёная кнопка для успешных действий (например, Регистрация) */
+.btn-fixit-success {
+    background-color: #28a745; /* Зелёный цвет */
+    color: #fff;
+}
+
+.btn-fixit-success:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-fixit-success:active {
+    background-color: #1e7e34;
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Голубая кнопка для входа (например, Войти) */
+.btn-fixit-login {
+    background-color: #17a2b8; /* Голубой цвет */
+    color: #fff;
+}
+
+.btn-fixit-login:hover {
+    background-color: #138496;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-fixit-login:active {
+    background-color: #117a8b;
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Класс для крупных кнопок (например, в баннере) */
+.btn-fixit-lg {
+    padding: 14px 28px;
+    font-size: 1.2rem;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .btn-fixit {
+        padding: 10px 20px; /* Меньшие отступы на мобильных устройствах */
+        font-size: 0.9rem; /* Меньший размер шрифта */
+        margin-bottom: 10px; /* Меньший отступ между кнопками */
+    }
+
+    .btn-fixit-lg {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .nav-tabs .nav-link {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    .tab-content {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+
+    .btn-fixit {
+        padding: 10px 20px;
+        min-width: 120px;
+        font-size: 0.9rem;
+    }
+
+    .btn-fixit-lg {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
